@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3064267716961352034}
   - component: {fileID: 6669507145731205624}
   - component: {fileID: 8606780186920087644}
+  - component: {fileID: 7581695427085832116}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -99,11 +100,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0
   dashLenth: 0
-  healthPoints: 0
   baseAttack: 0
   baseAttackSpeed: 0
   attackModifier: 0
+  dash: 0
+  pteradactyl: {x: 0, y: 0, z: 0}
   canMove: 0
   isMoving: 0
   hasMoved: 0
   canAttack: 0
+  enemyHP: 0
+  distance: 0
+  X: 0
+  Y: 0
+--- !u!114 &7581695427085832116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 680459247264740829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 741dda56a6754ff4eaa03cfb4856348d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

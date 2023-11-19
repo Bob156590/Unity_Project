@@ -11,7 +11,6 @@ public class Enemy : MonoBehaviour
     public int speed;
     private int spTurn;
     public int dashLenth;
-    public float healthPoints;
     public float baseAttack;
     public int baseAttackSpeed;
     public float attackModifier;
@@ -36,8 +35,7 @@ public class Enemy : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         //speed = 3;
         //spTurn = Random.Range(0, speed);
-        dashLenth = 3;
-        healthPoints = 10;
+        dashLenth = 1;
         baseAttack = 1;
         baseAttackSpeed = 1;
         attackModifier = 1;
@@ -49,9 +47,6 @@ public class Enemy : MonoBehaviour
         canAttack = false;
     }
     public void Update(){
-        if(enemyHP <= 0){
-            Destroy(gameObject);
-        }
         distance = Vector2.Distance(transform.position, player.transform.position);
         if(gameManager.gameState == GameState.PlayerTurn && Input.GetKeyDown(KeyCode.Space) && distance == 1f){
             Takedamage(5);
@@ -77,9 +72,7 @@ public class Enemy : MonoBehaviour
             if(diffPeteradactil.x < 0) list.Add(3);
             where = list[Random.Range(0, list.Count)];//It just works
         }
-        else{
-            DealDmg();
-        }
+
     }
     public void Move()
     {
@@ -108,7 +101,7 @@ public class Enemy : MonoBehaviour
     }
     public void Takedamage(int dmg){
         enemyHP -= dmg;
-        gameManager.UpdateGameState(GameState.PlayerTurn);
+        gameManager.UpdateGameState(GameState.EnemyTurn);
     }
     private void DealDmg(){
         playerScript.Takedamage(Random.Range(1,10));
