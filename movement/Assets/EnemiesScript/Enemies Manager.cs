@@ -7,7 +7,7 @@ public class EnemiesManager : MonoBehaviour
 {
     GameManager gameManager;
     Transform player;
-    List<Enemy> enemies = new List<Enemy>();
+    public List<Enemy> enemies = new List<Enemy>();
     bool enemiesMoved;
     public GameObject prefab;
     public GameObject enemySpawn;
@@ -40,6 +40,9 @@ public class EnemiesManager : MonoBehaviour
                 {
                     enemy.Move();
                 }
+                else if(enemy.canAttack){
+                    enemy.Attack();
+                }
             }
             SetState();
         }
@@ -49,7 +52,7 @@ public class EnemiesManager : MonoBehaviour
     {
         enemySpawn = Instantiate(prefab);
         //enemySpawn enemies[enemies.Count - 1];
-        enemySpawn.GetComponent<Enemy>().pteradactyl = new Vector3(x, y, 0);
+        enemySpawn.GetComponent<Enemy>().pos = new Vector3(x, y, 0);
         enemies.Add(enemySpawn.GetComponent<Enemy>());
         enemySpawn.transform.position = new Vector3(x, y,0);
     }
@@ -75,7 +78,16 @@ public class EnemiesManager : MonoBehaviour
         foreach(Enemy enemy in enemies)
         {
             enemy.CanMove(player.position);
+            enemy.CanAttack(player.position);
         }
         setupMove = false;
+    }
+    public void DeleteInstance(int id)
+    {
+        enemies.RemoveAt(id);
+        for(int i = id; i < enemies.Count; i++)
+        {
+            enemies[i].id = -1;
+        }
     }
 }

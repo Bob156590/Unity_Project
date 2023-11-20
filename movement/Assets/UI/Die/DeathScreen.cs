@@ -1,10 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
-public class DestroySelf : MonoBehaviour
+public class DeathScreen : MonoBehaviour
 {
-    Enemy enemy;
+    public TMP_Text gameOver;
+    public string[] deathLevel = {
+        "Subjet brainwaves have ceased\n\nSubject did not last long."
+    };
     // Start is called before the first frame update
     void Start()
     {
@@ -14,8 +18,6 @@ public class DestroySelf : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (enemy.enemyHP <= 0){
-            Destroy(gameObject);
-        }
+        
     }
 }
