@@ -42,7 +42,7 @@ public class Enemy : MonoBehaviour
         dashLenth = 1;
         baseAttack = 1;
         baseAttackSpeed = 1;
-        bAST = 0;
+        bAST = 1;
         attackModifier = 1;
         enemyHP = Random.Range(2, 10);
         id = enemiesManager.enemies.Count - 1;
@@ -55,7 +55,6 @@ public class Enemy : MonoBehaviour
         if(enemyHP <= 0){
             gameObject.SetActive(false);
             Destroy(gameObject);
-
         }
         distance = Vector2.Distance(transform.position, player.transform.position);
         if(gameManager.gameState == GameState.PlayerTurn && Input.GetKeyDown(KeyCode.Space) && distance == 1f){
@@ -111,11 +110,12 @@ public class Enemy : MonoBehaviour
     }
     public void CanAttack(Vector3 playerPos){
         attackModifier = 1;
-         Vector3 diffPos = pos - playerPos;
+        Vector3 diffPos = pos - playerPos;
         X = diffPos.x;
         Y = diffPos.y;
         if(Mathf.Abs(diffPos.x) + Mathf.Abs(diffPos.y) == 1){
             canAttack = true;
+            hasMoved = false;
             attackModifier /= playerScript.playerHP/100;
         }
     }
@@ -123,13 +123,11 @@ public class Enemy : MonoBehaviour
         enemyHP -= dmg;
         gameManager.UpdateGameState(GameState.EnemyTurn);
     }
-    void OnDestroy() {
-        enemiesManager.DeleteInstance(id);
-    }
     public void Attack(bool oppertunity = false){
         if(bAST == baseAttackSpeed || oppertunity){
             playerScript.Takedamage(baseAttack*Random.Range(attackModifier-0.1f, attackModifier+0.1f));
         }
-        bAST++;
+        hasMoved = true;
+        canAttack = false;
     }
 }

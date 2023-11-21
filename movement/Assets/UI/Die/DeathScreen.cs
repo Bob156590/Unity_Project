@@ -6,18 +6,17 @@ using UnityEngine;
 public class DeathScreen : MonoBehaviour
 {
     public TMP_Text gameOver;
-    public string[] deathLevel = {
-        "Subjet brainwaves have ceased\n\nSubject did not last long."
+    private string[] deathLevel = {
+        "Subjet brainwaves have ceased\nSubject did not last long."
     };
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        gameOver.text = "You Died";
     }
 }

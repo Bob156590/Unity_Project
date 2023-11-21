@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player_FightSkript : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class Player_FightSkript : MonoBehaviour
     void Update()
     {
         if(playerHP <= 0){
-            
+            SceneManager.LoadScene("GameOver");
         }
     }
 
