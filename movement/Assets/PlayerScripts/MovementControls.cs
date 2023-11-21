@@ -79,18 +79,3 @@ public class MovementControls : MonoBehaviour
     }
 
 }
-/*        else if(gameManager.gameState== GameState.PlayerMove){
-            if(distanceMoved == 18){
-                if(transform.position.y > 0 && transform.position.x > 0){
-                    transform.position = new Vector3(Mathf.Round(transform.position.x) - 0.5f, Mathf.Round(transform.position.y) - 0.5f, 0f);
-                }
-                gameManager.UpdateGameState(GameState.EnemyTurn);
-                distanceMoved = 0;
-            }
-            else if(distanceMoved != 16){
-                transform.position += velocity * 1/16f;
-                distanceMoved++;
-            }
-            else if(distanceMoved != 18 && distanceMoved >= 16){
-                distanceMoved++;
-            }*/
