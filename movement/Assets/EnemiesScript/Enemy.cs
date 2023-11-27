@@ -20,6 +20,7 @@ public class Enemy : MonoBehaviour
     Player_FightSkript playerScript;
     public float dash;
     public Vector3 pos;
+    Vector3 lastPos;
     private int where;
     public bool canMove;
     public bool isMoving;
@@ -105,6 +106,7 @@ public class Enemy : MonoBehaviour
         {
             canMove = false;
             hasMoved = true;
+            lastPos = transform.position;
         }
         transform.position = pos;
     }
@@ -127,6 +129,7 @@ public class Enemy : MonoBehaviour
         if(bAST == baseAttackSpeed || oppertunity){
             playerScript.Takedamage(baseAttack*Random.Range(attackModifier-0.1f, attackModifier+0.1f));
         }
+        canMove = false;
         hasMoved = true;
         canAttack = false;
     }

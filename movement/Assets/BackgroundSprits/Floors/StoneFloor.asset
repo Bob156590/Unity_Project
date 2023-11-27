@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: floor
+  m_Name: StoneFloor
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 21300000, guid: d50df5abf81ee4245be0cc8de26401d6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: dc1b88a2701c5e944bee7978d36c8d8a, type: 3}
+  m_Color: {r: 1, g: 0.9669811, b: 0.9669811, a: 1}
   m_Transform:
     e00: 1
     e01: 0
