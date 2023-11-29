@@ -10,11 +10,13 @@ TagManager:
   - MovementControls
   - EnemiesManager
   - HealthBar
+  - Walls
+  - RangedEnemy
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Floor
   - Water
   - UI
   - Walls
