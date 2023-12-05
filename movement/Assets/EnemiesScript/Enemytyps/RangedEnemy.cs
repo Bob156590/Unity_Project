@@ -18,7 +18,7 @@ public class RangedEnemy : Enemy
         baseAttackSpeed = 1;
         bAST = 1;
         attackModifier = 1;
-        enemyHP = Random.Range(2, 10);
+        enemyHP = Random.Range(2, 5);
         id = enemiesManager.enemies.Count - 1;
         attackRange = 1;
         canMove = false;
@@ -28,13 +28,13 @@ public class RangedEnemy : Enemy
         dead = false;
     }
     public override void Update(){
-        if(enemyHP <= 0){
-            Destroy(gameObject);
-            dead = true;
-        }
         distance = Vector2.Distance(transform.position, player.transform.position);
         if(gameManager.gameState == GameState.PlayerTurn && Input.GetKeyDown(KeyCode.Space) && distance == 1f){
             Takedamage(5);
+        }
+        if(enemyHP <= 0){
+            Destroy(gameObject);
+            dead = true;
         }
     }
 
@@ -45,8 +45,20 @@ public class RangedEnemy : Enemy
         X = diffPos.x;
         Y = diffPos.y;
         spTurn++;
-        if(Mathf.Abs(diffPos.x) + Mathf.Abs(diffPos.y) > 1 && !dead && speed == spTurn) 
+        if(Mathf.Abs(diffPos.x) + Mathf.Abs(diffPos.y) < 6 && !dead && speed == spTurn) 
         {
+            hasMoved = false;
+            canMove = true;
+            dash = 0;
+            spTurn = 0;
+            List<int> list = new List<int>();
+            if(diffPos.y < 0) list.Add(0);
+            if(diffPos.y > 0) list.Add(1);
+            if(diffPos.x < 0) list.Add(2);
+            if(diffPos.x > 0) list.Add(3);
+            where = list[Random.Range(0, list.Count)];//It just works
+        }
+        else if(Mathf.Abs(diffPos.x) + Mathf.Abs(diffPos.y) > 7 && !dead && speed == spTurn){
             hasMoved = false;
             canMove = true;
             dash = 0;
@@ -56,7 +68,7 @@ public class RangedEnemy : Enemy
             if(diffPos.y < 0) list.Add(1);
             if(diffPos.x > 0) list.Add(2);
             if(diffPos.x < 0) list.Add(3);
-            where = list[Random.Range(0, list.Count)];//It just works
+            where = list[Random.Range(0, list.Count)];
         }
         else if(dead){
             hasMoved = true;
@@ -95,11 +107,11 @@ public class RangedEnemy : Enemy
         Vector3 diffPos = pos - playerPos;
         X = diffPos.x;
         Y = diffPos.y;
-        if(Mathf.Abs(diffPos.x) + Mathf.Abs(diffPos.y) == 1 && !dead){
+        if(Mathf.Abs(diffPos.x) + Mathf.Abs(diffPos.y) == 6 && !dead || Mathf.Abs(diffPos.x) + Mathf.Abs(diffPos.y) == 7 && !dead){
             canAttack = true;
             hasMoved = false;
             attackModifier /= playerScript.playerHP/100;
-            bAST = 0;
+            bAST = 1;
         }
         else if(dead){
             hasMoved = true;

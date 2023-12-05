@@ -46,7 +46,7 @@ public class Enemy : MonoBehaviour
         baseAttackSpeed = 1;
         bAST = 1;
         attackModifier = 1;
-        enemyHP = Random.Range(2, 10);
+        enemyHP = Random.Range(2, 5);
         id = enemiesManager.enemies.Count - 1;
         attackRange = 1;
         canMove = false;

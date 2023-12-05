@@ -23,7 +23,7 @@ public class EnemiesManager : MonoBehaviour
         player = GameObject.FindWithTag("Player").GetComponent<Transform>();
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         SpawnEnemy(1.5f, 0.5f, 1);
-        //SpawnEnemy(Random.Range(-21, 20)+0.5f, Random.Range(-4, 3)+0.5f);
+        //SpawnEnemy(Random.Range(-21, 20)+0.5f, Random.Range(-4, 3)+0.5f,0);
         //SpawnEnemy(Random.Range(-21, 20)+0.5f, Random.Range(-4, 3)+0.5f);
     }
     
@@ -33,16 +33,6 @@ public class EnemiesManager : MonoBehaviour
         if(gameManager.gameState == GameState.EnemyTurn){
             if(setupMove) SetOppertunities();
             foreach(Enemy enemy in enemies)
-            {
-                if(enemy.canMove && !enemy.canAttack)
-                {
-                    enemy.Move();
-                }
-                else if(enemy.canAttack){
-                    enemy.Attack();
-                }
-            }
-            foreach(RangedEnemy enemy in enemies)
             {
                 if(enemy.canMove && !enemy.canAttack)
                 {
@@ -74,7 +64,7 @@ public class EnemiesManager : MonoBehaviour
                 enemies.Add(rEnemy.GetComponent<RangedEnemy>());
                 rEnemy.transform.position = new Vector3(x, y,-1);
                 return;
-
+            
         }
         
     }
@@ -89,35 +79,19 @@ public class EnemiesManager : MonoBehaviour
                 break;
             }
         }
-        foreach (RangedEnemy enemy in enemies){
-            if(!enemy.hasMoved) 
-            {
-                enemiesMoved = false;
-                break;
-            }
-        }
         if(enemiesMoved){
             gameManager.UpdateGameState(GameState.PlayerTurn);
             setupMove = true;
             foreach (Enemy i in enemies)
             {
                 i.hasMoved = false;
-            }  
-            foreach (RangedEnemy i in enemies)
-            {
-                i.hasMoved = false;
-            } 
+            }
         } 
     }
 
     public void SetOppertunities()
     {
         foreach(Enemy enemy in enemies)
-        {
-            enemy.CanMove(player.position);
-            enemy.CanAttack(player.position);
-        }
-        foreach(RangedEnemy enemy in enemies)
         {
             enemy.CanMove(player.position);
             enemy.CanAttack(player.position);
