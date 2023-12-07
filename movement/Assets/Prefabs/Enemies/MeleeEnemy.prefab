@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 6669507145731205624}
   - component: {fileID: 8606780186920087644}
   m_Layer: 0
-  m_Name: Enemy
-  m_TagString: Enemy
+  m_Name: MeleeEnemy
+  m_TagString: MeleeEnemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -98,16 +98,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
+  gameManager: {fileID: 0}
   speed: 0
+  spTurn: 0
   dashLenth: 0
   baseAttack: 0
   baseAttackSpeed: 0
   bAST: 0
   attackRange: 0
   attackModifier: 0
+  playerScript: {fileID: 0}
   dash: 0
   pos: {x: 0, y: 0, z: 0}
-  check: 0
+  where: 0
   canMove: 0
   isMoving: 0
   hasMoved: 0
@@ -115,5 +118,7 @@ MonoBehaviour:
   dead: 0
   enemyHP: 0
   distance: 0
+  player: {fileID: 0}
+  enemiesManager: {fileID: 0}
   X: 0
   Y: 0

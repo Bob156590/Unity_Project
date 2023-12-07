@@ -11,29 +11,30 @@ public class EnemiesManager : MonoBehaviour
     bool enemiesMoved;
     public GameObject mprefab;
     public GameObject rprefab;
-    public GameObject mEnemy;
-    public GameObject rEnemy;
+    private GameObject mEnemy;
+    private GameObject rEnemy;
     bool setupMove = true;
     
     // Start is called before the first frame update
     void Start()
     {
-        mEnemy = GameObject.FindGameObjectWithTag("Enemy");
+        mEnemy = GameObject.FindGameObjectWithTag("MeleeEnemy");
         rEnemy = GameObject.FindGameObjectWithTag("RangedEnemy");
         player = GameObject.FindWithTag("Player").GetComponent<Transform>();
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
-        SpawnEnemy(1.5f, 0.5f, 1);
-        //SpawnEnemy(Random.Range(-21, 20)+0.5f, Random.Range(-4, 3)+0.5f,0);
+        //SpawnEnemy(1.5f, 0.5f, 1);
+        //SpawnEnemy(1.5f, 0.5f,0);
         //SpawnEnemy(Random.Range(-21, 20)+0.5f, Random.Range(-4, 3)+0.5f);
     }
     
         // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         if(gameManager.gameState == GameState.EnemyTurn){
             if(setupMove) SetOppertunities();
             foreach(Enemy enemy in enemies)
             {
+                if(enemy)
                 if(enemy.canMove && !enemy.canAttack)
                 {
                     enemy.Move();
@@ -52,14 +53,12 @@ public class EnemiesManager : MonoBehaviour
         {
             case 0:
                 mEnemy = Instantiate(mprefab);
-                //mEnemy enemies[enemies.Count - 1];
                 mEnemy.GetComponent<Enemy>().pos = new Vector3(x, y, -1);
                 enemies.Add(mEnemy.GetComponent<Enemy>());
                 mEnemy.transform.position = new Vector3(x, y,-1);
                 return;
             case 1:
                 rEnemy = Instantiate(rprefab);
-                //mEnemy enemies[enemies.Count - 1];
                 rEnemy.GetComponent<RangedEnemy>().pos = new Vector3(x, y, -1);
                 enemies.Add(rEnemy.GetComponent<RangedEnemy>());
                 rEnemy.transform.position = new Vector3(x, y,-1);
@@ -93,17 +92,12 @@ public class EnemiesManager : MonoBehaviour
     {
         foreach(Enemy enemy in enemies)
         {
+            if(enemy is null){
+                continue;
+            }
             enemy.CanMove(player.position);
             enemy.CanAttack(player.position);
         }
         setupMove = false;
-    }
-    public void DeleteInstance(int id)
-    {
-        enemies.RemoveAt(id);
-        for(int i = id; i < enemies.Count; i++)
-        {
-            enemies[i].id = -1;
-        }
     }
 }

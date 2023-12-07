@@ -4,7 +4,6 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Enemy
   - GameManager
   - FightManager
   - MovementControls
@@ -12,6 +11,8 @@ TagManager:
   - HealthBar
   - Walls
   - RangedEnemy
+  - MeleeEnemy
+  - Speed_PU
   layers:
   - Default
   - TransparentFX

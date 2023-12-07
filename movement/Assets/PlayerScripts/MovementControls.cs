@@ -10,8 +10,6 @@ public class MovementControls : MonoBehaviour
 {
     [SerializeField]
     public LayerMask stopWall;
-    private float time = 0.5f;
-    private float timer = 0f;
     public float speed = 1f;
     int distanceMoved = 0;
     public int moved = 0;

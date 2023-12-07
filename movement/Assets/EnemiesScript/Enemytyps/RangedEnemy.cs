@@ -13,13 +13,12 @@ public class RangedEnemy : Enemy
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         player = GameObject.FindGameObjectWithTag("Player");
         speed = 1;
-        dashLenth = 1;
+        dashLength = 1;
         baseAttack = 1;
         baseAttackSpeed = 1;
         bAST = 1;
         attackModifier = 1;
         enemyHP = Random.Range(2, 5);
-        id = enemiesManager.enemies.Count - 1;
         attackRange = 1;
         canMove = false;
         isMoving = false;
@@ -28,14 +27,7 @@ public class RangedEnemy : Enemy
         dead = false;
     }
     public override void Update(){
-        distance = Vector2.Distance(transform.position, player.transform.position);
-        if(gameManager.gameState == GameState.PlayerTurn && Input.GetKeyDown(KeyCode.Space) && distance == 1f){
-            Takedamage(5);
-        }
-        if(enemyHP <= 0){
-            Destroy(gameObject);
-            dead = true;
-        }
+        base.Update();
     }
 
     public override void CanMove(Vector3 playerPos)
@@ -93,7 +85,7 @@ public class RangedEnemy : Enemy
                 break;
         }
         dash += 0.0625f;
-        if(dashLenth == dash)
+        if(dashLength == dash)
         {
             canMove = false;
             hasMoved = true;

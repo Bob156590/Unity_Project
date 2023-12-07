@@ -8,18 +8,17 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public int id;
     public GameManager gameManager;
     public int speed;
-    public int spTurn;
-    public int dashLenth;
-    public float baseAttack;
-    public int baseAttackSpeed;
+    public int spTurn; //Wait before moving
+    public int dashLength; //Max dashlength
+    public float baseAttack; //How had it can attcl
+    public int baseAttackSpeed; //How fast it can attack
     public int bAST;
-    public int attackRange;
-    public float attackModifier;
+    public int attackRange; //How far away it can attack from
+    public float attackModifier; //Modific dmg positively and negatively
     public Player_FightSkript playerScript;
-    public float dash;
+    public float dash; //
     public Vector3 pos;
     public int where;
     public bool canMove;
@@ -41,13 +40,12 @@ public class Enemy : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         speed = 1;
         spTurn = Random.Range(0, speed);
-        dashLenth = 1;
+        dashLength = 1;
         baseAttack = 1;
         baseAttackSpeed = 1;
         bAST = 1;
         attackModifier = 1;
         enemyHP = Random.Range(2, 5);
-        id = enemiesManager.enemies.Count - 1;
         attackRange = 1;
         canMove = false;
         isMoving = false;
@@ -56,13 +54,14 @@ public class Enemy : MonoBehaviour
         dead = false;
     }
     public virtual void Update(){
-        if(enemyHP <= 0){
-            Destroy(gameObject);
-            dead = true;
-        }
         distance = Vector2.Distance(transform.position, player.transform.position);
         if(gameManager.gameState == GameState.PlayerTurn && Input.GetKeyDown(KeyCode.Space) && distance == 1f){
             Takedamage(5);
+        }
+        if(enemyHP <= 0){
+            Destroy(gameObject);
+            dead = true;
+            enemiesManager.enemies.Remove(this);
         }
     }
     /// <summary>
@@ -110,7 +109,7 @@ public class Enemy : MonoBehaviour
                 break;
         }
         dash += 0.0625f;
-        if(dashLenth == dash)
+        if(dashLength == dash)
         {
             canMove = false;
             hasMoved = true;
