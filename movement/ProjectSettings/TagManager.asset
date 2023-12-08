@@ -13,6 +13,7 @@ TagManager:
   - RangedEnemy
   - MeleeEnemy
   - Speed_PU
+  - Everything
   layers:
   - Default
   - TransparentFX

@@ -5,11 +5,13 @@ public class Player_FightSkript : MonoBehaviour
 {
     public float playerHP;
     public float distance;
+    public float dmg;
     HealthBar healthBar;
     GameManager gameManager;
     // Start is called before the first frame update
     void Start()
     {
+        dmg = 10;
         playerHP = 100;
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         healthBar = GameObject.FindGameObjectWithTag("HealthBar").GetComponent<HealthBar>();
