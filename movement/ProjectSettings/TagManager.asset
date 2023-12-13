@@ -4,15 +4,21 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Enemy
   - GameManager
   - FightManager
   - MovementControls
+  - EnemiesManager
+  - HealthBar
+  - Walls
+  - RangedEnemy
+  - MeleeEnemy
+  - Speed_PU
+  - Everything
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Floor
   - Water
   - UI
   - Walls

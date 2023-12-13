@@ -3,18 +3,17 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEditor.Rendering;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 public class MovementControls : MonoBehaviour
 {
     [SerializeField]
     public LayerMask stopWall;
-    private float time = 0.5f;
-    private float timer = 0f;
     public float speed = 1f;
     int distanceMoved = 0;
     public int moved = 0;
-    private int maxMovement = 1;
+    public int maxMovement = 1;
     Vector3 velocity = new Vector3();
     GameManager gameManager;
     Vector3 lastPos;
@@ -76,20 +75,4 @@ public class MovementControls : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other) {
         transform.position = lastPos;
     }
-
 }
-/*        else if(gameManager.gameState== GameState.PlayerMove){
-            if(distanceMoved == 18){
-                if(transform.position.y > 0 && transform.position.x > 0){
-                    transform.position = new Vector3(Mathf.Round(transform.position.x) - 0.5f, Mathf.Round(transform.position.y) - 0.5f, 0f);
-                }
-                gameManager.UpdateGameState(GameState.EnemyTurn);
-                distanceMoved = 0;
-            }
-            else if(distanceMoved != 16){
-                transform.position += velocity * 1/16f;
-                distanceMoved++;
-            }
-            else if(distanceMoved != 18 && distanceMoved >= 16){
-                distanceMoved++;
-            }*/

@@ -1,4 +1,3 @@
-
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -8,51 +7,65 @@ public class EnemiesManager : MonoBehaviour
 {
     GameManager gameManager;
     Transform player;
-    List<Enemy> enemies = new List<Enemy>();
+    public List<Enemy> enemies = new List<Enemy>();
     bool enemiesMoved;
-    public GameObject prefab;
-    public GameObject enemySpawn;
+    public GameObject mprefab;
+    public GameObject rprefab;
+    private GameObject mEnemy;
+    private GameObject rEnemy;
     bool setupMove = true;
     
     // Start is called before the first frame update
     void Start()
     {
-        enemySpawn = GameObject.FindGameObjectWithTag("Enemy");
+        mEnemy = GameObject.FindGameObjectWithTag("MeleeEnemy");
+        rEnemy = GameObject.FindGameObjectWithTag("RangedEnemy");
         player = GameObject.FindWithTag("Player").GetComponent<Transform>();
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
-        SpawnEnemy(3.5f, -3.5f);
-        SpawnEnemy(Random.Range(-21, 20)+0.5f, Random.Range(-4, 3)+0.5f);
-        SpawnEnemy(Random.Range(-21, 20)+0.5f, Random.Range(-4, 3)+0.5f);
-        SpawnEnemy(Random.Range(-21, 20)+0.5f, Random.Range(-4, 3)+0.5f);
-        SpawnEnemy(Random.Range(-21, 20)+0.5f, Random.Range(-4, 3)+0.5f);
-        SpawnEnemy(Random.Range(-21, 20)+0.5f, Random.Range(-4, 3)+0.5f);
-        SpawnEnemy(Random.Range(-21, 20)+0.5f, Random.Range(-4, 3)+0.5f);
-        SpawnEnemy(Random.Range(-21, 20)+0.5f, Random.Range(-4, 3)+0.5f);
+        //SpawnEnemy(1.5f, 0.5f, 1);
+        //SpawnEnemy(1.5f, 0.5f,0);
+        //SpawnEnemy(Random.Range(-21, 20)+0.5f, Random.Range(-4, 3)+0.5f);
     }
     
         // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         if(gameManager.gameState == GameState.EnemyTurn){
             if(setupMove) SetOppertunities();
             foreach(Enemy enemy in enemies)
             {
+                if(enemy)
                 if(enemy.canMove && !enemy.canAttack)
                 {
                     enemy.Move();
+                }
+                else if(enemy.canAttack){
+                    enemy.Attack();
                 }
             }
             SetState();
         }
     }
 
-    private void SpawnEnemy(float x, float y)
+    private void SpawnEnemy(float x, float y, int type)
     {
-        enemySpawn = Instantiate(prefab);
-        //enemySpawn enemies[enemies.Count - 1];
-        enemySpawn.GetComponent<Enemy>().pteradactyl = new Vector3(x, y, 0);
-        enemies.Add(enemySpawn.GetComponent<Enemy>());
-        enemySpawn.transform.position = new Vector3(x, y,0);
+        switch(type)
+        {
+            case 0:
+                mEnemy = Instantiate(mprefab);
+                mEnemy.GetComponent<Enemy>().pos = new Vector3(x, y, -1);
+                enemies.Add(mEnemy.GetComponent<Enemy>());
+                mEnemy.transform.position = new Vector3(x, y,-1);
+                return;
+            case 1:
+                rEnemy = Instantiate(rprefab);
+                rEnemy.GetComponent<RangedEnemy>().pos = new Vector3(x, y, -1);
+                enemies.Add(rEnemy.GetComponent<RangedEnemy>());
+                rEnemy.transform.position = new Vector3(x, y,-1);
+                return;
+            
+        }
+        
     }
 
     public void SetState()
@@ -66,8 +79,12 @@ public class EnemiesManager : MonoBehaviour
             }
         }
         if(enemiesMoved){
-          gameManager.UpdateGameState(GameState.PlayerTurn);
-          setupMove = true;  
+            gameManager.UpdateGameState(GameState.PlayerTurn);
+            setupMove = true;
+            foreach (Enemy i in enemies)
+            {
+                i.hasMoved = false;
+            }
         } 
     }
 
@@ -75,7 +92,11 @@ public class EnemiesManager : MonoBehaviour
     {
         foreach(Enemy enemy in enemies)
         {
+            if(enemy is null){
+                continue;
+            }
             enemy.CanMove(player.position);
+            enemy.CanAttack(player.position);
         }
         setupMove = false;
     }
