@@ -72,7 +72,12 @@ public class MovementControls : MonoBehaviour
             }
         }
     }
-
+    public void Push(Vector3 pos){
+        while (distanceMoved != 16){
+            transform.position += pos;
+            distanceMoved++;
+        }
+    }
     private void OnTriggerEnter2D(Collider2D other) {
         playerScript.Takedamage(5);
         transform.position = lastPos;

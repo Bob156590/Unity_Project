@@ -6,11 +6,14 @@ using UnityEngine;
 public class ChargingEnemy : Enemy
 {
     // Start is called before the first frame update
-    public float push;
+    public MovementControls playerMove;
+    public bool charge;
+    public bool push;
     void Start()
     {
         enemiesManager = GameObject.FindGameObjectWithTag("EnemiesManager").GetComponent<EnemiesManager>();
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Player_FightSkript>();
+        playerMove = GameObject.FindGameObjectWithTag("Player").GetComponent<MovementControls>();
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         player = GameObject.FindGameObjectWithTag("Player");
         speed = 1;
@@ -72,6 +75,7 @@ public class ChargingEnemy : Enemy
     }
 
     public override void CanAttack(Vector3 playerPos){
+        charge = false;
         Vector3 diffPos = pos - playerPos;
         spTurn = 0;
         distance = Vector2.Distance(transform.position, player.transform.position);
@@ -81,8 +85,18 @@ public class ChargingEnemy : Enemy
             canAttack = true;
             hasMoved = false;
             attackModifier /= playerScript.playerHP/100;
-            if(diffPos.y > 0) where = 0;
-            else if(diffPos.y < 0) where = 1;
+            if(diffPos.y > 0){
+                where = 0;
+                if(Mathf.Abs(diffPos.x) + Mathf.Abs(diffPos.y) > 2){
+                    charge = true;
+                }
+            }
+            else if(diffPos.y < 0){
+                where = 1;
+                if(Mathf.Abs(diffPos.x) + Mathf.Abs(diffPos.y) > 2){
+                    charge = true;
+                }
+            }
 
         }
         else if(playerPos.y == transform.position.y && distance >= 2){
@@ -90,12 +104,22 @@ public class ChargingEnemy : Enemy
             canAttack = true;
             hasMoved = false;
             attackModifier /= playerScript.playerHP/100;
-            if(diffPos.x > 0) where = 2;
-            else if(diffPos.x < 0) where = 3;
+            if(diffPos.x > 0){
+                where = 2;
+                if(Mathf.Abs(diffPos.x) + Mathf.Abs(diffPos.y) > 2){
+                    charge = true;
+                }
+            }
+            else if(diffPos.x < 0){
+                where = 3;
+                if(Mathf.Abs(diffPos.x) + Mathf.Abs(diffPos.y) > 2){
+                    charge = true;
+                }
+            }
         }
     }
     public override void Attack(bool oppertunity = false){
-        if(distance >= 2){
+        if(charge){
             switch(where)
             {
                 case 0:
@@ -117,10 +141,11 @@ public class ChargingEnemy : Enemy
                 canAttack = false;
                 canMove = false;
                 hasMoved = true;
+                push = true;
             }
             transform.position = pos;
         }
-        else if(distance > 1){
+        else{
             switch(where)
             {
                 case 0:
@@ -142,10 +167,33 @@ public class ChargingEnemy : Enemy
                 canAttack = false;
                 canMove = false;
                 hasMoved = true;
+                push = true;
             }
             transform.position = pos;
         }
-
+        if(charge && Mathf.Abs(pos.x) + Mathf.Abs(pos.y) == 1){
+            push = true;
+        }
+        if(push){
+            switch(where){
+                 case 0:
+                    playerMove.Push(new Vector3(0, -0.0625f, 0));
+                    push = false;
+                    break;
+                case 1:
+                    playerMove.Push(new Vector3(0, +0.0625f, 0));
+                    push = false;
+                    break;
+                case 2:
+                    playerMove.Push(new Vector3(-0.0625f, 0, 0));
+                    push = false;
+                    break;
+                case 3:
+                    playerMove.Push(new Vector3(0.0625f, 0, 0));
+                    push = false;
+                    break;
+            }
+        }
     }
 
 }
