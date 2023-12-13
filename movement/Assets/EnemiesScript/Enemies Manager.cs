@@ -9,8 +9,10 @@ public class EnemiesManager : MonoBehaviour
     Transform player;
     public List<Enemy> enemies = new List<Enemy>();
     bool enemiesMoved;
-    public GameObject mprefab;
-    public GameObject rprefab;
+    public GameObject mPrefab;
+    public GameObject rPrefab;
+    public GameObject cPrefab;
+    private GameObject cEnemy;
     private GameObject mEnemy;
     private GameObject rEnemy;
     bool setupMove = true;
@@ -18,13 +20,14 @@ public class EnemiesManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        cEnemy = GameObject.FindGameObjectWithTag("Charger");
         mEnemy = GameObject.FindGameObjectWithTag("MeleeEnemy");
         rEnemy = GameObject.FindGameObjectWithTag("RangedEnemy");
         player = GameObject.FindWithTag("Player").GetComponent<Transform>();
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
-        //SpawnEnemy(1.5f, 0.5f, 1);
-        //SpawnEnemy(1.5f, 0.5f,0);
-        //SpawnEnemy(Random.Range(-21, 20)+0.5f, Random.Range(-4, 3)+0.5f);
+        SpawnEnemy(3.5f, 0.5f, 2);
+        //SpawnEnemy(Random.Range(-21, 20)+0.5f, Random.Range(-4, 3)+0.5f, 2);
+        //SpawnEnemy(Random.Range(-21, 20)+0.5f, Random.Range(-4, 3)+0.5f, 1);
     }
     
         // Update is called once per frame
@@ -52,18 +55,23 @@ public class EnemiesManager : MonoBehaviour
         switch(type)
         {
             case 0:
-                mEnemy = Instantiate(mprefab);
-                mEnemy.GetComponent<Enemy>().pos = new Vector3(x, y, -1);
-                enemies.Add(mEnemy.GetComponent<Enemy>());
+                mEnemy = Instantiate(mPrefab);
+                mEnemy.GetComponent<MeleeEnemy>().pos = new Vector3(x, y, -1);
+                enemies.Add(mEnemy.GetComponent<MeleeEnemy>());
                 mEnemy.transform.position = new Vector3(x, y,-1);
                 return;
             case 1:
-                rEnemy = Instantiate(rprefab);
+                rEnemy = Instantiate(rPrefab);
                 rEnemy.GetComponent<RangedEnemy>().pos = new Vector3(x, y, -1);
                 enemies.Add(rEnemy.GetComponent<RangedEnemy>());
                 rEnemy.transform.position = new Vector3(x, y,-1);
                 return;
-            
+            case 2:
+                cEnemy = Instantiate(cPrefab);
+                cEnemy.GetComponent<ChargingEnemy>().pos = new Vector3(x, y, -1);
+                enemies.Add(cEnemy.GetComponent<ChargingEnemy>());
+                cEnemy.transform.position = new Vector3(x, y,-1);
+                return;            
         }
         
     }
@@ -92,9 +100,6 @@ public class EnemiesManager : MonoBehaviour
     {
         foreach(Enemy enemy in enemies)
         {
-            if(enemy is null){
-                continue;
-            }
             enemy.CanMove(player.position);
             enemy.CanAttack(player.position);
         }

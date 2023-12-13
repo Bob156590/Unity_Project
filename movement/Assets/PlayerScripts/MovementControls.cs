@@ -17,10 +17,11 @@ public class MovementControls : MonoBehaviour
     Vector3 velocity = new Vector3();
     GameManager gameManager;
     Vector3 lastPos;
-
+    public Player_FightSkript playerScript;
     // Start is called before the first frame update
     void Start()
     {
+        playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Player_FightSkript>();
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
 
     }
@@ -73,6 +74,7 @@ public class MovementControls : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
+        playerScript.Takedamage(5);
         transform.position = lastPos;
     }
 }

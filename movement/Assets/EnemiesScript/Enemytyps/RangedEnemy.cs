@@ -24,7 +24,6 @@ public class RangedEnemy : Enemy
         isMoving = false;
         hasMoved = true;
         canAttack = false;
-        dead = false;
     }
     public override void Update(){
         base.Update();
@@ -32,12 +31,11 @@ public class RangedEnemy : Enemy
 
     public override void CanMove(Vector3 playerPos)
     {
-        runAway = Vector2.Distance(playerPos, transform.position);
         Vector3 diffPos = pos - playerPos;
         X = diffPos.x;
         Y = diffPos.y;
         spTurn++;
-        if(Mathf.Abs(diffPos.x) + Mathf.Abs(diffPos.y) < 6 && !dead && speed == spTurn) 
+        if(Mathf.Abs(diffPos.x) + Mathf.Abs(diffPos.y) < 6 && speed == spTurn) 
         {
             hasMoved = false;
             canMove = true;
@@ -50,7 +48,7 @@ public class RangedEnemy : Enemy
             if(diffPos.x > 0) list.Add(3);
             where = list[Random.Range(0, list.Count)];//It just works
         }
-        else if(Mathf.Abs(diffPos.x) + Mathf.Abs(diffPos.y) > 7 && !dead && speed == spTurn){
+        else if(Mathf.Abs(diffPos.x) + Mathf.Abs(diffPos.y) > 7 && speed == spTurn){
             hasMoved = false;
             canMove = true;
             dash = 0;
@@ -61,9 +59,6 @@ public class RangedEnemy : Enemy
             if(diffPos.x > 0) list.Add(2);
             if(diffPos.x < 0) list.Add(3);
             where = list[Random.Range(0, list.Count)];
-        }
-        else if(dead){
-            hasMoved = true;
         }
     }
 
@@ -94,19 +89,16 @@ public class RangedEnemy : Enemy
     }
 
     public override void CanAttack(Vector3 playerPos){
-        runAway = Vector2.Distance(playerPos, transform.position);
         attackModifier = 1;
         Vector3 diffPos = pos - playerPos;
         X = diffPos.x;
         Y = diffPos.y;
-        if(Mathf.Abs(diffPos.x) + Mathf.Abs(diffPos.y) == 6 && !dead || Mathf.Abs(diffPos.x) + Mathf.Abs(diffPos.y) == 7 && !dead){
+        if(Mathf.Abs(diffPos.x) + Mathf.Abs(diffPos.y) == 6 || Mathf.Abs(diffPos.x) + Mathf.Abs(diffPos.y) == 7){
+            spTurn = 0;
             canAttack = true;
             hasMoved = false;
             attackModifier /= playerScript.playerHP/100;
             bAST = 1;
-        }
-        else if(dead){
-            hasMoved = true;
         }
     }
     
