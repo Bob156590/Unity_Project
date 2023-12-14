@@ -8,7 +8,7 @@ public class ChargingEnemy : Enemy
     // Start is called before the first frame update
     public MovementControls playerMove;
     public bool charge;
-    public bool push;
+    public bool hit;
     void Start()
     {
         enemiesManager = GameObject.FindGameObjectWithTag("EnemiesManager").GetComponent<EnemiesManager>();
@@ -141,9 +141,10 @@ public class ChargingEnemy : Enemy
                 canAttack = false;
                 canMove = false;
                 hasMoved = true;
-                push = true;
             }
             transform.position = pos;
+            distance = Vector2.Distance(player.transform.position, transform.position);
+            if(distance == 1)hit= true;
         }
         else{
             switch(where)
@@ -167,30 +168,34 @@ public class ChargingEnemy : Enemy
                 canAttack = false;
                 canMove = false;
                 hasMoved = true;
-                push = true;
+                hit= true;
             }
             transform.position = pos;
         }
         if(charge && Mathf.Abs(pos.x) + Mathf.Abs(pos.y) == 1){
-            push = true;
+            hit= true;
         }
-        if(push){
+        if(hit){
             switch(where){
                  case 0:
                     playerMove.Push(new Vector3(0, -0.0625f, 0));
-                    push = false;
+                    playerScript.Takedamage(baseAttack*Random.Range(attackModifier-0.1f, attackModifier+0.1f));
+                    hit= false;
                     break;
                 case 1:
                     playerMove.Push(new Vector3(0, +0.0625f, 0));
-                    push = false;
+                    playerScript.Takedamage(baseAttack*Random.Range(attackModifier-0.1f, attackModifier+0.1f));
+                    hit= false;
                     break;
                 case 2:
                     playerMove.Push(new Vector3(-0.0625f, 0, 0));
-                    push = false;
+                    playerScript.Takedamage(baseAttack*Random.Range(attackModifier-0.1f, attackModifier+0.1f));
+                    hit= false;
                     break;
                 case 3:
                     playerMove.Push(new Vector3(0.0625f, 0, 0));
-                    push = false;
+                    playerScript.Takedamage(baseAttack*Random.Range(attackModifier-0.1f, attackModifier+0.1f));
+                    hit= false;
                     break;
             }
         }

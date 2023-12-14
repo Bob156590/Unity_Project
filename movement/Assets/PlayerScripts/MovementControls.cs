@@ -77,6 +77,7 @@ public class MovementControls : MonoBehaviour
             transform.position += pos;
             distanceMoved++;
         }
+        distanceMoved = 0;
     }
     private void OnTriggerEnter2D(Collider2D other) {
         playerScript.Takedamage(5);
