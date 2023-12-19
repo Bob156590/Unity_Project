@@ -27,8 +27,13 @@ public class Player_FightSkript : MonoBehaviour
     }
 
     public void Heal(float hp){
-        healthBar.SetHealth(playerHP+hp);
-        playerHP += hp;
+        if(playerHP + hp <= 100){
+            healthBar.SetHealth(playerHP+hp);
+            playerHP += hp;
+        }
+        else{
+            healthBar.SetHealth(100);
+        }
     }
     public void Takedamage(float dmg){
         playerHP -= dmg;

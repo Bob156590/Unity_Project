@@ -6,14 +6,15 @@ using UnityEngine;
 public class ChargingEnemy : Enemy
 {
     // Start is called before the first frame update
-    public MovementControls playerMove;
+    public MovementControls movement;
     public bool charge;
     public bool hit;
-    void Start()
+    public override void Start()
     {
+        money = GameObject.FindGameObjectWithTag("Player").GetComponent<Money>();
         enemiesManager = GameObject.FindGameObjectWithTag("EnemiesManager").GetComponent<EnemiesManager>();
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Player_FightSkript>();
-        playerMove = GameObject.FindGameObjectWithTag("Player").GetComponent<MovementControls>();
+        movement = GameObject.FindGameObjectWithTag("Player").GetComponent<MovementControls>();
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         player = GameObject.FindGameObjectWithTag("Player");
         speed = 1;
@@ -23,7 +24,7 @@ public class ChargingEnemy : Enemy
         baseAttackSpeed = 1;
         bAST = 1;
         attackModifier = 1;
-        enemyHP = Random.Range(2, 5);
+        enemyHP = Random.Range(5, 15);
         attackRange = 1;
         canMove = false;
         isMoving = false;
@@ -34,7 +35,25 @@ public class ChargingEnemy : Enemy
     // Update is called once per frame
     public override void Update()
     {
-        base.Update();
+        check = transform.position - player.transform.position;
+        if((gameManager.gameState == GameState.PlayerTurn || gameManager.gameState == GameState.PlayerMove) && Input.GetKeyDown(KeyCode.RightArrow) && check.x == 1 && Mathf.Abs(check.x) + Mathf.Abs(check.y) == 1){
+            Takedamage(5);
+        }
+        if((gameManager.gameState == GameState.PlayerTurn || gameManager.gameState == GameState.PlayerMove) && Input.GetKeyDown(KeyCode.LeftArrow) && check.x == -1 && Mathf.Abs(check.x) + Mathf.Abs(check.y) == 1){
+            Takedamage(5);
+        }
+        if((gameManager.gameState == GameState.PlayerTurn || gameManager.gameState == GameState.PlayerMove) && Input.GetKeyDown(KeyCode.UpArrow) && check.y == 1 && Mathf.Abs(check.x) + Mathf.Abs(check.y) == 1){
+            Takedamage(5);
+        }
+        if((gameManager.gameState == GameState.PlayerTurn || gameManager.gameState == GameState.PlayerMove) && Input.GetKeyDown(KeyCode.DownArrow) && check.y == -1 && Mathf.Abs(check.x) + Mathf.Abs(check.y) == 1){
+            Takedamage(5);
+        }
+        if(enemyHP <= 0){
+            Destroy(gameObject);
+            money.coins += 40;
+            powerupsSpawner.Spawn(transform.position);
+            enemiesManager.enemies.Remove(this);
+        }
     }
     public override void CanMove(Vector3 playerPos)
     {
@@ -67,6 +86,7 @@ public class ChargingEnemy : Enemy
             if(diffPos.x < 0) list.Add(2);
             if(diffPos.x > 0) list.Add(3);
             where = list[Random.Range(0, list.Count)];//It just works
+            lastPos = transform.position;
         }
     }
     public override void Move()
@@ -97,7 +117,7 @@ public class ChargingEnemy : Enemy
                     charge = true;
                 }
             }
-
+            lastPos = transform.position;
         }
         else if(playerPos.y == transform.position.y && distance >= 2){
             dash = 0;
@@ -116,6 +136,7 @@ public class ChargingEnemy : Enemy
                     charge = true;
                 }
             }
+            lastPos = transform.position;
         }
     }
     public override void Attack(bool oppertunity = false){
@@ -178,22 +199,22 @@ public class ChargingEnemy : Enemy
         if(hit){
             switch(where){
                  case 0:
-                    playerMove.Push(new Vector3(0, -0.0625f, 0));
+                    movement.Push(new Vector3(0, -0.0625f, 0));
                     playerScript.Takedamage(baseAttack*Random.Range(attackModifier-0.1f, attackModifier+0.1f));
                     hit= false;
                     break;
                 case 1:
-                    playerMove.Push(new Vector3(0, +0.0625f, 0));
+                    movement.Push(new Vector3(0, +0.0625f, 0));
                     playerScript.Takedamage(baseAttack*Random.Range(attackModifier-0.1f, attackModifier+0.1f));
                     hit= false;
                     break;
                 case 2:
-                    playerMove.Push(new Vector3(-0.0625f, 0, 0));
+                    movement.Push(new Vector3(-0.0625f, 0, 0));
                     playerScript.Takedamage(baseAttack*Random.Range(attackModifier-0.1f, attackModifier+0.1f));
                     hit= false;
                     break;
                 case 3:
-                    playerMove.Push(new Vector3(0.0625f, 0, 0));
+                    movement.Push(new Vector3(0.0625f, 0, 0));
                     playerScript.Takedamage(baseAttack*Random.Range(attackModifier-0.1f, attackModifier+0.1f));
                     hit= false;
                     break;

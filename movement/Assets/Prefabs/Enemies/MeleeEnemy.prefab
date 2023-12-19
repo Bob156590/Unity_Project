@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3064267716961352034}
   - component: {fileID: 6669507145731205624}
-  - component: {fileID: 8606780186920087644}
+  - component: {fileID: -2458113981718695213}
   m_Layer: 0
   m_Name: MeleeEnemy
   m_TagString: MeleeEnemy
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8606780186920087644
+--- !u!114 &-2458113981718695213
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,14 +94,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 680459247264740829}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6871a844a0ce81d4bb2904e60e280ef6, type: 3}
+  m_Script: {fileID: 11500000, guid: ef228cc4f7974c34aa84c577a615c184, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 0
   gameManager: {fileID: 0}
   speed: 0
   spTurn: 0
-  dashLenth: 0
+  dashLength: 0
   baseAttack: 0
   baseAttackSpeed: 0
   bAST: 0
@@ -115,10 +114,10 @@ MonoBehaviour:
   isMoving: 0
   hasMoved: 0
   canAttack: 0
-  dead: 0
   enemyHP: 0
   distance: 0
   player: {fileID: 0}
   enemiesManager: {fileID: 0}
   X: 0
   Y: 0
+  check: {x: 0, y: 0, z: 0}

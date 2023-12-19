@@ -6,8 +6,9 @@ public class RangedEnemy : Enemy
 {
     public float runAway;
     // Start is called before the first frame update
-    void Start()
+    public override void Start()
     {
+        money = GameObject.FindGameObjectWithTag("Player").GetComponent<Money>();
         enemiesManager = GameObject.FindGameObjectWithTag("EnemiesManager").GetComponent<EnemiesManager>();
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Player_FightSkript>();
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
@@ -26,7 +27,25 @@ public class RangedEnemy : Enemy
         canAttack = false;
     }
     public override void Update(){
-        base.Update();
+        check = transform.position - player.transform.position;
+        if((gameManager.gameState == GameState.PlayerTurn || gameManager.gameState == GameState.PlayerMove) && Input.GetKeyDown(KeyCode.RightArrow) && check.x == 1 && Mathf.Abs(check.x) + Mathf.Abs(check.y) == 1){
+            Takedamage(5);
+        }
+        if((gameManager.gameState == GameState.PlayerTurn || gameManager.gameState == GameState.PlayerMove) && Input.GetKeyDown(KeyCode.LeftArrow) && check.x == -1 && Mathf.Abs(check.x) + Mathf.Abs(check.y) == 1){
+            Takedamage(5);
+        }
+        if((gameManager.gameState == GameState.PlayerTurn || gameManager.gameState == GameState.PlayerMove) && Input.GetKeyDown(KeyCode.UpArrow) && check.y == 1 && Mathf.Abs(check.x) + Mathf.Abs(check.y) == 1){
+            Takedamage(5);
+        }
+        if((gameManager.gameState == GameState.PlayerTurn || gameManager.gameState == GameState.PlayerMove) && Input.GetKeyDown(KeyCode.DownArrow) && check.y == -1 && Mathf.Abs(check.x) + Mathf.Abs(check.y) == 1){
+            Takedamage(5);
+        }
+        if(enemyHP <= 0){
+            Destroy(gameObject);
+            money.coins += 35;
+            powerupsSpawner.Spawn(transform.position);
+            enemiesManager.enemies.Remove(this);
+        }
     }
 
     public override void CanMove(Vector3 playerPos)

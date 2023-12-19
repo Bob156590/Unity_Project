@@ -25,7 +25,7 @@ public class EnemiesManager : MonoBehaviour
         rEnemy = GameObject.FindGameObjectWithTag("RangedEnemy");
         player = GameObject.FindWithTag("Player").GetComponent<Transform>();
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
-        SpawnEnemy(3.5f, 0.5f, 2);
+        SpawnEnemy(1.5f, 1.5f, 0);
         //SpawnEnemy(Random.Range(-21, 20)+0.5f, Random.Range(-4, 3)+0.5f, 2);
         //SpawnEnemy(Random.Range(-21, 20)+0.5f, Random.Range(-4, 3)+0.5f, 1);
     }
@@ -37,7 +37,6 @@ public class EnemiesManager : MonoBehaviour
             if(setupMove) SetOppertunities();
             foreach(Enemy enemy in enemies)
             {
-                if(enemy)
                 if(enemy.canMove && !enemy.canAttack)
                 {
                     enemy.Move();

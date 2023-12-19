@@ -8,6 +8,8 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    public PowerupsSpawner powerupsSpawner;
+    public Money money;
     public GameManager gameManager;
     public int speed;
     public int spTurn; //Wait before moving
@@ -27,12 +29,16 @@ public class Enemy : MonoBehaviour
     public bool canAttack;
     public int enemyHP;
     public float distance;
-    public GameObject player;
+    protected GameObject player;
     public EnemiesManager enemiesManager;
     public float X;
     public float Y;
-    private void Start()
+    public Vector3 check;
+    public Vector3 lastPos;
+    public virtual void Start()
     {
+        powerupsSpawner = GameObject.FindGameObjectWithTag("PUSpawner").GetComponent<PowerupsSpawner>();
+        money = GameObject.FindGameObjectWithTag("Player").GetComponent<Money>();
         enemiesManager = GameObject.FindGameObjectWithTag("EnemiesManager").GetComponent<EnemiesManager>();
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Player_FightSkript>();
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
@@ -44,7 +50,7 @@ public class Enemy : MonoBehaviour
         baseAttackSpeed = 1;
         bAST = 1;
         attackModifier = 1;
-        enemyHP = Random.Range(2, 5);
+        enemyHP = Random.Range(2, 10);
         attackRange = 1;
         canMove = false;
         isMoving = false;
@@ -52,12 +58,23 @@ public class Enemy : MonoBehaviour
         canAttack = false;
     }
     public virtual void Update(){
-        distance = Vector2.Distance(transform.position, player.transform.position);
-        if(gameManager.gameState == GameState.PlayerTurn && Input.GetKeyDown(KeyCode.Space) && distance == 1f){
+        check = transform.position - player.transform.position;
+        if((gameManager.gameState == GameState.PlayerTurn || gameManager.gameState == GameState.PlayerMove) && Input.GetKeyDown(KeyCode.RightArrow) && check.x == 1 && Mathf.Abs(check.x) + Mathf.Abs(check.y) == 1){
+            Takedamage(5);
+        }
+        if((gameManager.gameState == GameState.PlayerTurn || gameManager.gameState == GameState.PlayerMove) && Input.GetKeyDown(KeyCode.LeftArrow) && check.x == -1 && Mathf.Abs(check.x) + Mathf.Abs(check.y) == 1){
+            Takedamage(5);
+        }
+        if((gameManager.gameState == GameState.PlayerTurn || gameManager.gameState == GameState.PlayerMove) && Input.GetKeyDown(KeyCode.UpArrow) && check.y == 1 && Mathf.Abs(check.x) + Mathf.Abs(check.y) == 1){
+            Takedamage(5);
+        }
+        if((gameManager.gameState == GameState.PlayerTurn || gameManager.gameState == GameState.PlayerMove) && Input.GetKeyDown(KeyCode.DownArrow) && check.y == -1 && Mathf.Abs(check.x) + Mathf.Abs(check.y) == 1){
             Takedamage(5);
         }
         if(enemyHP <= 0){
             Destroy(gameObject);
+            money.coins += 15;
+            powerupsSpawner.Spawn(transform.position);
             enemiesManager.enemies.Remove(this);
         }
     }
@@ -70,19 +87,18 @@ public class Enemy : MonoBehaviour
         Vector3 diffPos = pos - playerPos;
         X = diffPos.x;
         Y = diffPos.y;
-        spTurn++;
-        if(Mathf.Abs(diffPos.x) + Mathf.Abs(diffPos.y) > 1 && speed == spTurn) 
+        if(Mathf.Abs(diffPos.x) + Mathf.Abs(diffPos.y) > 1) 
         {
             hasMoved = false;
             canMove = true;
             dash = 0;
-            spTurn = 0;
             List<int> list = new List<int>();
             if(diffPos.y > 0) list.Add(0);
             if(diffPos.y < 0) list.Add(1);
             if(diffPos.x > 0) list.Add(2);
             if(diffPos.x < 0) list.Add(3);
             where = list[Random.Range(0, list.Count)];//It just works
+            lastPos = transform.position;
         }
     }
     public virtual void Move()
@@ -119,7 +135,6 @@ public class Enemy : MonoBehaviour
             canAttack = true;
             hasMoved = false;
             attackModifier /= playerScript.playerHP/100;
-            bAST = 0;
         }
     }
     public virtual void Takedamage(int dmg){
@@ -127,12 +142,15 @@ public class Enemy : MonoBehaviour
         gameManager.UpdateGameState(GameState.EnemyTurn);
     }
     public virtual void Attack(bool oppertunity = false){
-        if(bAST == baseAttackSpeed || oppertunity){
+        if(bAST == baseAttackSpeed){
             playerScript.Takedamage(baseAttack*Random.Range(attackModifier-0.1f, attackModifier+0.1f));
         }
-        bAST++;
         canMove = false;
         hasMoved = true;
         canAttack = false;
+    }
+    public void GoBack(){
+        transform.position = lastPos;
+        gameManager.UpdateGameState(GameState.PlayerTurn);
     }
 }
