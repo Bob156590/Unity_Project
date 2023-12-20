@@ -11,6 +11,7 @@ public class ChargingEnemy : Enemy
     public bool hit;
     public override void Start()
     {
+        powerupsSpawner = GameObject.FindGameObjectWithTag("PUSpawner").GetComponent<PowerupsSpawner>();
         money = GameObject.FindGameObjectWithTag("Player").GetComponent<Money>();
         enemiesManager = GameObject.FindGameObjectWithTag("EnemiesManager").GetComponent<EnemiesManager>();
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Player_FightSkript>();
@@ -220,6 +221,10 @@ public class ChargingEnemy : Enemy
                     break;
             }
         }
+    }
+    public override void GoBack()
+    {
+        base.GoBack();
     }
 
 }

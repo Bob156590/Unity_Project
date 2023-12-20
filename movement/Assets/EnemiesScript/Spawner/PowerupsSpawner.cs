@@ -22,7 +22,14 @@ public class PowerupsSpawner : MonoBehaviour
         
     }
     public void Spawn(Vector3 pos){
-        health = Instantiate(healthPre);
-        health.transform.position = pos;
+        int num = Random.Range(0, 100);
+        if(num > 75){
+            health = Instantiate(healthPre);
+            health.transform.position = pos;
+        }
+        if(num < 25){
+            speed = Instantiate(speedPre);
+            speed.transform.position = pos;
+        }
     }
 }

@@ -46,7 +46,7 @@ public class Enemy : MonoBehaviour
         speed = 1;
         spTurn = Random.Range(0, speed);
         dashLength = 1;
-        baseAttack = 1;
+        baseAttack = Random.Range(1, 10);
         baseAttackSpeed = 1;
         bAST = 1;
         attackModifier = 1;
@@ -149,7 +149,7 @@ public class Enemy : MonoBehaviour
         hasMoved = true;
         canAttack = false;
     }
-    public void GoBack(){
+    public virtual void GoBack(){
         transform.position = lastPos;
         gameManager.UpdateGameState(GameState.PlayerTurn);
     }

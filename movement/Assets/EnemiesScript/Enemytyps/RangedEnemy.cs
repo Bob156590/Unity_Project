@@ -8,6 +8,7 @@ public class RangedEnemy : Enemy
     // Start is called before the first frame update
     public override void Start()
     {
+        powerupsSpawner = GameObject.FindGameObjectWithTag("PUSpawner").GetComponent<PowerupsSpawner>();
         money = GameObject.FindGameObjectWithTag("Player").GetComponent<Money>();
         enemiesManager = GameObject.FindGameObjectWithTag("EnemiesManager").GetComponent<EnemiesManager>();
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Player_FightSkript>();
@@ -15,7 +16,7 @@ public class RangedEnemy : Enemy
         player = GameObject.FindGameObjectWithTag("Player");
         speed = 1;
         dashLength = 1;
-        baseAttack = 1;
+        baseAttack = 3;
         baseAttackSpeed = 1;
         bAST = 1;
         attackModifier = 1;
@@ -54,7 +55,7 @@ public class RangedEnemy : Enemy
         X = diffPos.x;
         Y = diffPos.y;
         spTurn++;
-        if(Mathf.Abs(diffPos.x) + Mathf.Abs(diffPos.y) < 6 && speed == spTurn) 
+        if(Mathf.Abs(diffPos.x) + Mathf.Abs(diffPos.y) < 3 && speed == spTurn) 
         {
             hasMoved = false;
             canMove = true;
@@ -66,8 +67,9 @@ public class RangedEnemy : Enemy
             if(diffPos.x < 0) list.Add(2);
             if(diffPos.x > 0) list.Add(3);
             where = list[Random.Range(0, list.Count)];//It just works
+            lastPos = transform.position;
         }
-        else if(Mathf.Abs(diffPos.x) + Mathf.Abs(diffPos.y) > 7 && speed == spTurn){
+        else if(Mathf.Abs(diffPos.x) + Mathf.Abs(diffPos.y) > 4 && speed == spTurn){
             hasMoved = false;
             canMove = true;
             dash = 0;
@@ -78,6 +80,7 @@ public class RangedEnemy : Enemy
             if(diffPos.x > 0) list.Add(2);
             if(diffPos.x < 0) list.Add(3);
             where = list[Random.Range(0, list.Count)];
+            lastPos = transform.position;
         }
     }
 
@@ -112,7 +115,7 @@ public class RangedEnemy : Enemy
         Vector3 diffPos = pos - playerPos;
         X = diffPos.x;
         Y = diffPos.y;
-        if(Mathf.Abs(diffPos.x) + Mathf.Abs(diffPos.y) == 6 || Mathf.Abs(diffPos.x) + Mathf.Abs(diffPos.y) == 7){
+        if(Mathf.Abs(diffPos.x) + Mathf.Abs(diffPos.y) == 3 || Mathf.Abs(diffPos.x) + Mathf.Abs(diffPos.y) == 4){
             spTurn = 0;
             canAttack = true;
             hasMoved = false;
@@ -133,5 +136,9 @@ public class RangedEnemy : Enemy
         canMove = false;
         hasMoved = true;
         canAttack = false;
+    }
+    public override void GoBack()
+    {
+        base.GoBack();
     }
 }

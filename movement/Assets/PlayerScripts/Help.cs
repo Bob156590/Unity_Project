@@ -23,14 +23,14 @@ public class Help : MonoBehaviour
         if(Mathf.Abs(player.transform.position.y) >= 4.5){
             movement.GoBack();
         }
-        if(Mathf.Abs(player.transform.position.x) >= 25.5){
+        if(Mathf.Abs(player.transform.position.x) >= 7.5){
             movement.GoBack();
         }
         foreach(Enemy i in enemiesManager.enemies){
             if(Mathf.Abs(i.transform.position.y) >= 4.5){
                 i.GoBack();
             }
-            if(Mathf.Abs(i.transform.position.x) >= 25.5){
+            if(Mathf.Abs(i.transform.position.x) >= 7.5){
                 i.GoBack();
             }
             if(player.transform.position == i.transform.position){
