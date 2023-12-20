@@ -97,6 +97,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cade9b9c01ae7ee49b84a33266792edd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  powerupsSpawner: {fileID: 0}
+  money: {fileID: 0}
   gameManager: {fileID: 0}
   speed: 0
   spTurn: 0
@@ -116,8 +118,11 @@ MonoBehaviour:
   canAttack: 0
   enemyHP: 0
   distance: 0
-  player: {fileID: 0}
   enemiesManager: {fileID: 0}
   X: 0
   Y: 0
-  push: 0
+  check: {x: 0, y: 0, z: 0}
+  lastPos: {x: 0, y: 0, z: 0}
+  movement: {fileID: 0}
+  charge: 0
+  hit: 0

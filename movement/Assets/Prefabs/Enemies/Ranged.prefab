@@ -74,8 +74,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.7834459, g: 0.8584906, b: 0.09313814, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 94307edd2eb93884790518c2b35c33d1, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -97,11 +97,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9ab3a5b733b40844b47d2155dafdd3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 0
+  powerupsSpawner: {fileID: 0}
+  money: {fileID: 0}
   gameManager: {fileID: 0}
   speed: 0
   spTurn: 0
-  dashLenth: 0
+  dashLength: 0
   baseAttack: 0
   baseAttackSpeed: 0
   bAST: 0
@@ -115,11 +116,11 @@ MonoBehaviour:
   isMoving: 0
   hasMoved: 0
   canAttack: 0
-  dead: 0
   enemyHP: 0
   distance: 0
-  player: {fileID: 0}
   enemiesManager: {fileID: 0}
   X: 0
   Y: 0
+  check: {x: 0, y: 0, z: 0}
+  lastPos: {x: 0, y: 0, z: 0}
   runAway: 0
