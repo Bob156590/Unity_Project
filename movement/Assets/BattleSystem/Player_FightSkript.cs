@@ -5,12 +5,14 @@ public class Player_FightSkript : MonoBehaviour
 {
     public float playerHP;
     public float distance;
+    public float physRes;//Physical resistance
     public float dmg;
     HealthBar healthBar;
     GameManager gameManager;
     // Start is called before the first frame update
     void Start()
     {
+        physRes = 1;
         dmg = 10;
         playerHP = 100;
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
@@ -36,7 +38,7 @@ public class Player_FightSkript : MonoBehaviour
         }
     }
     public void Takedamage(float dmg){
-        playerHP -= dmg;
+        playerHP -= dmg * physRes;
         healthBar.SetHealth(playerHP);
         gameManager.UpdateGameState(GameState.PlayerTurn);
     }

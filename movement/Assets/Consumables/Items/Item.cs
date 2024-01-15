@@ -2,25 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HealthPacK : MonoBehaviour
+public class Item : MonoBehaviour
 {
-    public float distance;
-    MovementControls player;
     public Player_FightSkript playerScript;
+    public GameObject player;
     // Start is called before the first frame update
     void Start()
     {
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Player_FightSkript>();
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<MovementControls>();
+        player = GameObject.FindWithTag("Player");
     }
 
     // Update is called once per frame
     void Update()
     {
-        distance = Vector2.Distance(transform.position, player.transform.position);
-        if (distance == 0){
-            playerScript.Heal(10);
-            Destroy(gameObject);
+        if(player.transform.position == transform.position){
+
         }
     }
 }

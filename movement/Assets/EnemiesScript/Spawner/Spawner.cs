@@ -17,10 +17,10 @@ public class Spawner : MonoBehaviour
     {
         if(enemiesManager.enemies.Count == 0){
             for(int i = 0; i < Random.Range(1,3); i++){
-                enemiesManager.SpawnEnemy(Random.Range(-8, 7)+0.5f, Random.Range(-4, 3)+0.5f, 0);
+                enemiesManager.SpawnEnemy(Random.Range(-8, 7)+0.5f, Random.Range(-4, 3)+0.5f, 2);
             }
             for(int i = 0; i < Random.Range(0,2); i++){
-                enemiesManager.SpawnEnemy(Random.Range(-8, 7)+0.5f, Random.Range(-4, 3)+0.5f, 1);
+                enemiesManager.SpawnEnemy(Random.Range(-8, 7)+0.5f, Random.Range(-4, 3)+0.5f, 2);
             }
             for(int i = 0; i < Random.Range(0,1); i++){
                 enemiesManager.SpawnEnemy(Random.Range(-8, 7)+0.5f, Random.Range(-4, 3)+0.5f, 2);
