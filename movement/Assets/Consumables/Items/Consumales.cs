@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Consumales : Item
 {
-    public string type;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,10 +15,24 @@ public class Consumales : Item
     {
         
     }
-
-    public void UseItem(ref Consumales item)
+    
+    public Consumales(string type)
     {
-        switch (item.type)
+        switch (type)
+        {
+            case "DebugItem01":
+                this.type = type;
+                uses = 100;
+                inInv = true;
+                break;
+            
+        }
+        this.Spawn();
+    }
+    
+    public override void UseItem(string item)
+    {
+        switch (item)
         {
             case "DebugItem01":
                 playerScript.physRes = 0;
