@@ -11,7 +11,7 @@ public class RangedEnemy : Enemy
         powerupsSpawner = GameObject.FindGameObjectWithTag("PUSpawner").GetComponent<PowerupsSpawner>();
         money = GameObject.FindGameObjectWithTag("Player").GetComponent<Money>();
         enemiesManager = GameObject.FindGameObjectWithTag("EnemiesManager").GetComponent<EnemiesManager>();
-        playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Player_FightSkript>();
+        playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<FightScript>();
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         player = GameObject.FindGameObjectWithTag("Player");
         speed = 1;

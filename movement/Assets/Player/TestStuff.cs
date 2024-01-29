@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class TestStuff : MonoBehaviour
 {
-    public Player_FightSkript playerScript;
+    public FightScript playerScript;
     public GameObject healthPre;
     private GameObject healthPack;
     // Start is called before the first frame update
     void Start()
     {
-        playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Player_FightSkript>();
+        playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<FightScript>();
         healthPack = GameObject.FindGameObjectWithTag("HealthPack");
     }
 

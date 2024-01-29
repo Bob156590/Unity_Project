@@ -6,7 +6,7 @@ using UnityEngine;
 public class ChargingEnemy : Enemy
 {
     // Start is called before the first frame update
-    public MovementControls movement;
+    public PlayerMovement movement;
     public bool charge;
     public bool hit;
     public override void Start()
@@ -14,8 +14,8 @@ public class ChargingEnemy : Enemy
         powerupsSpawner = GameObject.FindGameObjectWithTag("PUSpawner").GetComponent<PowerupsSpawner>();
         money = GameObject.FindGameObjectWithTag("Player").GetComponent<Money>();
         enemiesManager = GameObject.FindGameObjectWithTag("EnemiesManager").GetComponent<EnemiesManager>();
-        playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Player_FightSkript>();
-        movement = GameObject.FindGameObjectWithTag("Player").GetComponent<MovementControls>();
+        playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<FightScript>();
+        movement = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         player = GameObject.FindGameObjectWithTag("Player");
         speed = 1;

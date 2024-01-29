@@ -7,18 +7,18 @@ using UnityEngine.SceneManagement;
 
 public class StatSwitch : MonoBehaviour
 {
-    private MovementControls player;
+    private PlayerMovement player;
     public GameManager gameManager;
-    public Player_FightSkript player_FightSkript;
+    public FightScript player_FightSkript;
     public GameObject everything;
     public TMP_Text text;
     private bool button = false;
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<MovementControls>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
-        player_FightSkript = GameObject.FindGameObjectWithTag("Player").GetComponent<Player_FightSkript>();
+        player_FightSkript = GameObject.FindGameObjectWithTag("Player").GetComponent<FightScript>();
         text.enabled = false;
     }
 

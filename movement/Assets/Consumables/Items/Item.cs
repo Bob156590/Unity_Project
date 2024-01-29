@@ -2,30 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Item : MonoBehaviour
+public class Item : MonoBehaviour
 {
-    public Player_FightSkript playerScript;
-    public GameObject player;
-    public string type;
+    
+    public Player player;
+    public int type;
     
     // Start is called before the first frame update
     void Start()
     {
-        playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Player_FightSkript>();
-        player = GameObject.FindWithTag("Player");
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
 
-    public void Spawn(Vector3 pos){
-
-    }
-
-    public abstract void UseItem(string item);
 
     // Update is called once per frame
     void Update()
     {
-        if(player.transform.position == transform.position){
-
+        if(player.transform.position == transform.position)//when the player steps on the item move it to the inventory
+        {
+            //player.inventory.MoveToInv();//get me the index of the item here ye?
         }
     }
 }

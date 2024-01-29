@@ -25,7 +25,7 @@ public class EnemiesManager : MonoBehaviour
         rEnemy = GameObject.FindGameObjectWithTag("RangedEnemy");
         player = GameObject.FindWithTag("Player").GetComponent<Transform>();
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
-        SpawnEnemy(1.5f, 1.5f, 1);
+        SpawnEnemy(new Vector3(1.5f,1.5f,-1), 1);
         //SpawnEnemy(Random.Range(-21, 20)+0.5f, Random.Range(-4, 3)+0.5f, 2);
         //SpawnEnemy(Random.Range(-21, 20)+0.5f, Random.Range(-4, 3)+0.5f, 1);
     }
@@ -49,27 +49,27 @@ public class EnemiesManager : MonoBehaviour
         }
     }
 
-    public void SpawnEnemy(float x, float y, int type)
+    public void SpawnEnemy(Vector3 pos, int type)
     {
         switch(type)
         {
             case 0:
                 mEnemy = Instantiate(mPrefab);
-                mEnemy.GetComponent<MeleeEnemy>().pos = new Vector3(x, y, -1);
+                mEnemy.GetComponent<MeleeEnemy>().pos = pos;
                 enemies.Add(mEnemy.GetComponent<MeleeEnemy>());
-                mEnemy.transform.position = new Vector3(x, y,-1);
+                mEnemy.transform.position = pos;
                 return;
             case 1:
                 rEnemy = Instantiate(rPrefab);
-                rEnemy.GetComponent<RangedEnemy>().pos = new Vector3(x, y, -1);
+                rEnemy.GetComponent<RangedEnemy>().pos = pos;
                 enemies.Add(rEnemy.GetComponent<RangedEnemy>());
-                rEnemy.transform.position = new Vector3(x, y,-1);
+                rEnemy.transform.position = pos;
                 return;
             case 2:
                 cEnemy = Instantiate(cPrefab);
-                cEnemy.GetComponent<ChargingEnemy>().pos = new Vector3(x, y, -1);
+                cEnemy.GetComponent<ChargingEnemy>().pos = pos;
                 enemies.Add(cEnemy.GetComponent<ChargingEnemy>());
-                cEnemy.transform.position = new Vector3(x, y,-1);
+                cEnemy.transform.position = pos;
                 return;            
         }
         

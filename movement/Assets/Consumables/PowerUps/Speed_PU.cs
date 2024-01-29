@@ -5,11 +5,11 @@ using UnityEngine;
 public class Speed_PU : MonoBehaviour
 {
     float distance;
-    MovementControls player;
+    PlayerMovement player;
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<MovementControls>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
     }
 
     // Update is called once per frame

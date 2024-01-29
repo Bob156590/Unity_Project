@@ -19,7 +19,7 @@ public class Enemy : MonoBehaviour
     public int bAST;
     public int attackRange; //How far away it can attack from
     public float attackModifier; //Modific dmg positively and negatively
-    public Player_FightSkript playerScript;
+    public FightScript playerScript;
     public float dash; //
     public Vector3 pos;
     public int where;
@@ -40,7 +40,7 @@ public class Enemy : MonoBehaviour
         powerupsSpawner = GameObject.FindGameObjectWithTag("PUSpawner").GetComponent<PowerupsSpawner>();
         money = GameObject.FindGameObjectWithTag("Player").GetComponent<Money>();
         enemiesManager = GameObject.FindGameObjectWithTag("EnemiesManager").GetComponent<EnemiesManager>();
-        playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Player_FightSkript>();
+        playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<FightScript>();
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         player = GameObject.FindGameObjectWithTag("Player");
         speed = 1;

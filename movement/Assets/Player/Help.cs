@@ -7,14 +7,14 @@ public class Help : MonoBehaviour
 {
     
     public GameObject player;
-    private MovementControls movement;
+    private PlayerMovement movement;
     public EnemiesManager enemiesManager;
     // Start is called before the first frame update
     void Start()
     {
         enemiesManager = GameObject.FindGameObjectWithTag("EnemiesManager").GetComponent<EnemiesManager>();
         player = GameObject.FindGameObjectWithTag("Player");
-        movement = GameObject.FindGameObjectWithTag("Player").GetComponent<MovementControls>();
+        movement = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
     }
 
     // Update is called once per frame

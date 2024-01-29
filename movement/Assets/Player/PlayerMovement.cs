@@ -1,13 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
-using UnityEditor.Rendering;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-
-public class MovementControls : MonoBehaviour
+public class PlayerMovement : Player
 {
+
     [SerializeField]
     public LayerMask stopWall;
     public float speed = 1f;
@@ -16,18 +13,9 @@ public class MovementControls : MonoBehaviour
     public bool move;
     public int maxMovement = 1;
     Vector3 velocity = new Vector3();
-    GameManager gameManager;
-    EnemiesManager enemiesManager;
     Vector3 lastPos;
-    public Player_FightSkript playerScript;
+    
     // Start is called before the first frame update
-    void Start()
-    {
-        playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Player_FightSkript>();
-        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
-        enemiesManager = GameObject.FindGameObjectWithTag("EnemiesManager").GetComponent<EnemiesManager>();
-
-    }
 
     // Update is called once per frame
     private void Update() {
@@ -93,11 +81,11 @@ public class MovementControls : MonoBehaviour
         distanceMoved = 0;
     }
     public void GoBack(){
-        playerScript.Takedamage(5);
+        //FightScript.Takedamage(5);
         transform.position = lastPos;
     }
     private void OnTriggerEnter2D(Collider2D other) {
-        playerScript.Takedamage(5);
+        //playerScript.Takedamage(5);
         transform.position = lastPos;
     }
 }

@@ -10,12 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 7801396858454893730}
   - component: {fileID: 6798007407000520844}
-  - component: {fileID: 6112697380934817623}
-  - component: {fileID: 8051373154834802712}
-  - component: {fileID: 7379269656340820998}
-  - component: {fileID: 3388278961880367643}
   - component: {fileID: 1460647591383552210}
   - component: {fileID: 6091627934964590197}
+  - component: {fileID: 2996283750230794076}
+  - component: {fileID: 6890478940208578439}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -90,69 +88,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6112697380934817623
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9212857743839586996}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7bc45ee02af52c408ef0285dc8af43e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerHP: 0
-  distance: 0
-  dmg: 0
---- !u!114 &8051373154834802712
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9212857743839586996}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e0c83af6b544fb42aed43617af07679, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stopWall:
-    serializedVersion: 2
-    m_Bits: 64
-  speed: 1
-  moved: 0
-  move: 0
-  maxMovement: 1
-  playerScript: {fileID: 0}
---- !u!114 &7379269656340820998
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9212857743839586996}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ac49c1eef029e64aa8001efe230f5c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerScript: {fileID: 0}
-  healthPre: {fileID: 8244193164022605199, guid: 398a772be79f0d147a64a268999a8dee, type: 3}
---- !u!114 &3388278961880367643
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9212857743839586996}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2053d8ff46892ac40af11c5dc408d22d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  coinCount: {fileID: 0}
-  coins: 0
 --- !u!50 &1460647591383552210
 Rigidbody2D:
   serializedVersion: 4
@@ -225,3 +160,48 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &2996283750230794076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9212857743839586996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a41e6715c3d1b81408297d827c8c1089, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerHP: 0
+  distance: 0
+  physRes: 0
+  dmg: 0
+  healthBar: {fileID: 0}
+  gameManager: {fileID: 0}
+  enemiesManager: {fileID: 0}
+--- !u!114 &6890478940208578439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9212857743839586996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d444a6069a6099e4ebd2a803430846b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerHP: 0
+  distance: 0
+  physRes: 0
+  dmg: 0
+  healthBar: {fileID: 0}
+  gameManager: {fileID: 0}
+  enemiesManager: {fileID: 0}
+  stopWall:
+    serializedVersion: 2
+    m_Bits: 0
+  speed: 1
+  moved: 0
+  move: 0
+  maxMovement: 1
