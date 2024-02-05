@@ -25,7 +25,7 @@ public class EnemiesManager : MonoBehaviour
         rEnemy = GameObject.FindGameObjectWithTag("RangedEnemy");
         player = GameObject.FindWithTag("Player").GetComponent<Transform>();
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
-        SpawnEnemy(new Vector3(1.5f,1.5f,-1), 1);
+        //SpawnEnemy(new Vector3(1.5f,1.5f,-1), 1);
         //SpawnEnemy(Random.Range(-21, 20)+0.5f, Random.Range(-4, 3)+0.5f, 2);
         //SpawnEnemy(Random.Range(-21, 20)+0.5f, Random.Range(-4, 3)+0.5f, 1);
     }

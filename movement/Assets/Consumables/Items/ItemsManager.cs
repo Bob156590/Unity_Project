@@ -5,29 +5,37 @@ using UnityEngine;
 
 public class ItemsManager 
 {
+    public int[] inv = new int[9];
+    private FightScript player;
 
-    private List<int> items;
-    public List<int> inv;
-    public Item item=new();
-    public void MoveToInv(int indx)
+    public void Initialize()
     {
-        SpawnItem(items[indx]);
-        RemoveItem(indx, false);
+        for (int i = 0; i < 9; i++){
+            inv[i] = 0;//when difficulties aare added set some to -1
+        }
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<FightScript>();
     }
-    public void SpawnItem(int id)
+
+    public bool MoveToInv(int id)
     {
-        inv.Add(id);
-        //create an objet here in inv
+        for (int i = 0; i < 9; i++){
+            if(inv[i] == 0 && inv[i] != -1)
+            {
+                inv[i] = id;
+                return true;
+            } 
+        }
+        return false;
     }
     public void SpawnItem(int id, UnityEngine.Vector3 pos)
     {
-        items.Add(id);
         //create an objet here at the pos
     }
     public bool UseItem(int id)
     {
         switch(id){
-            case 0:
+            case 1:
+                player.Takedamage(50);
                 return false;
             default:
                 return true;
@@ -39,14 +47,8 @@ public class ItemsManager
         if(UseItem(inv[index])) RemoveItem(index);//remove the item in the onscreen inventory too
 
     }
-    public void RemoveItem(int indx, bool inInv = true)
+    public void RemoveItem(int indx)
     {
-        if(inInv) 
-        {
-            inv.RemoveAt(indx);
-            return;
-        }
-        items.RemoveAt(indx);
-
+        inv[indx] = 0;
     }
 }

@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     public virtual void Start()
     {
+        inventory.Initialize();
         physRes = 1;
         dmg = 10;
         playerHP = 100;
@@ -24,7 +25,6 @@ public class Player : MonoBehaviour
         healthBar = GameObject.FindGameObjectWithTag("HealthBar").GetComponent<HealthBar>();
         enemiesManager = GameObject.FindGameObjectWithTag("EnemiesManager").GetComponent<EnemiesManager>();
         healthBar.MaxHealth(playerHP);
-        inventory.SpawnItem(0, new Vector3(1.5f, 1.5f,0));
     }
 
     // Update is called once per frame

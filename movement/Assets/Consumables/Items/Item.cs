@@ -11,6 +11,7 @@ public class Item : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        type = 1;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
 
@@ -20,6 +21,7 @@ public class Item : MonoBehaviour
     {
         if(player.transform.position == transform.position)//when the player steps on the item move it to the inventory
         {
+            if(player.inventory.MoveToInv(type)) Destroy(gameObject);
             //player.inventory.MoveToInv();//get me the index of the item here ye?
         }
     }
