@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Use : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class Use : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (player.inventory.inv[0] != 0/*empty slot*/ && player.inventory.inv[0] != -1/*disabledslot*/) ;
     }
     public void Buttn()
     {
