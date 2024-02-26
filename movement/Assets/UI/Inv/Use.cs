@@ -15,10 +15,14 @@ public class Use : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (player.inventory.inv[0] != 0/*empty slot*/ && player.inventory.inv[0] != -1/*disabledslot*/) ;
+        //if (player.inventory.inv[0] != 0/*empty slot*/ && player.inventory.inv[0] != -1/*disabledslot*/) ;
     }
     public void Buttn()
     {
-        if (player.inventory.inv[0] != 0/*empty slot*/ && player.inventory.inv[0] != -1/*disabledslot*/) player.inventory.Interct(player.inventory.inv[0]);
+        if (player.inventory.inv[0] != 0/*empty slot*/ && player.inventory.inv[0] != -1/*disabledslot*/)
+        {
+            player.inventory.Interct(player.inventory.inv[0]);
+            
+        }
     }
 }
