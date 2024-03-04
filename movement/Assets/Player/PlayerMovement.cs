@@ -14,11 +14,16 @@ public class PlayerMovement : Player
     public int maxMovement = 1;
     Vector3 velocity = new Vector3();
     Vector3 lastPos;
+    FightScript fPlayer;
     
     // Start is called before the first frame update
-
+    public override void Start()
+    {
+        base.Start();
+        fPlayer = GameObject.FindGameObjectWithTag("Player").GetComponent<FightScript>();
+    }
     // Update is called once per frame
-    private void Update() {
+    void Update() {
         if((gameManager.gameState == GameState.PlayerTurn || gameManager.gameState == GameState.PlayerMove) && Input.GetKeyDown(KeyCode.Space)){
             gameManager.UpdateGameState(GameState.EnemyTurn);
             lastPos = transform.position;
@@ -80,12 +85,16 @@ public class PlayerMovement : Player
         }
         distanceMoved = 0;
     }
-    public void GoBack(){
+    /*public void GoBack(){
         //FightScript.Takedamage(5);
         transform.position = lastPos;
-    }
+    }*/
     private void OnTriggerEnter2D(Collider2D other) {
-        //playerScript.Takedamage(5);
-        transform.position = lastPos;
+        if(other.tag.CompareTo("Walls") == 0)
+        {
+            Debug.Log($"Walls");
+            fPlayer.Takedamage(5);
+            transform.position = lastPos;
+        }
     }
 }

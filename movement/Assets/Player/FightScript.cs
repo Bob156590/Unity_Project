@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class FightScript : Player
 {
+    public int overTimeEffect;
     // Start is called before the first frame update
     public override void Start()
     {
@@ -18,14 +19,23 @@ public class FightScript : Player
         if(playerHP <= 0){
             SceneManager.LoadScene("GameOver");
         }
+        if(gameManager.gameState == GameState.PlayerMove)
+        {
+            if(overTimeEffect > 0)
+            {
+                Takedamage2(10, overTimeEffect -= 1);
+            }
+        }
     }
 
     public void Heal(float hp){
-        if(playerHP + hp <= 100){
+        if(playerHP + hp <= 100)
+        {
             healthBar.SetHealth(playerHP+hp);
             playerHP += hp;
         }
-        else{
+        else
+        {
             healthBar.SetHealth(100);
         }
     }
@@ -33,5 +43,11 @@ public class FightScript : Player
         playerHP -= dmg * physRes;
         healthBar.SetHealth(playerHP);
         gameManager.UpdateGameState(GameState.PlayerTurn);
+    }
+    public void Takedamage2(float dmg, int ote){
+        Debug.Log($"stuff + {ote}");
+        overTimeEffect = ote;
+        playerHP -= dmg * physRes;
+        healthBar.SetHealth(playerHP);
     }
 }

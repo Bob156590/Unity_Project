@@ -20,7 +20,7 @@ public class Help : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Mathf.Abs(player.transform.position.y) >= 4.5){
+        /*if(Mathf.Abs(player.transform.position.y) >= 4.5){
             movement.GoBack();
         }
         if(Mathf.Abs(player.transform.position.x) >= 7.5){
@@ -36,6 +36,6 @@ public class Help : MonoBehaviour
             if(player.transform.position == i.transform.position){
                 movement.GoBack();
             }
-        }
+        }*/
     }
 }
