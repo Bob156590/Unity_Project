@@ -4,14 +4,12 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
-    
     public Player player;
     public int type;
     
     // Start is called before the first frame update
     void Start()
     {
-        type = 1;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
 

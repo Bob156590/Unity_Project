@@ -9,11 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48b25f73bd44410469ec314c19c001ee, type: 3}
-  m_Name: Cheese
+  m_Script: {fileID: 11500000, guid: 83754a3d85468574486c3b0551731701, type: 3}
+  m_Name: img
   m_EditorClassIdentifier: 
-  id: 5
-  uses: 7
-  hpDiff: 11
-  equippable: 0
-  overTimeEffect: 1

@@ -20,11 +20,12 @@ public class Player : MonoBehaviour
         inventory.Initialize();
         physRes = 1;
         dmg = 10;
-        playerHP = 100;
+        playerHP = 10;
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         healthBar = GameObject.FindGameObjectWithTag("HealthBar").GetComponent<HealthBar>();
         enemiesManager = GameObject.FindGameObjectWithTag("EnemiesManager").GetComponent<EnemiesManager>();
-        healthBar.MaxHealth(playerHP);
+        healthBar.MaxHealth(100f);
+        healthBar.SetHealth(playerHP);
     }
 
     // Update is called once per frame
